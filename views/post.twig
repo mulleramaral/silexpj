@@ -1,0 +1,9 @@
+{% extends "layout.twig" %}
+
+{% block titulo %}Posts{% endblock %}
+
+{% block conteudo %}
+    <h3>Visualizando Post : {{post.id}} - {{post.post}}</h3>
+    
+    <a href="/posts">Ver posts</a>
+{% endblock %}

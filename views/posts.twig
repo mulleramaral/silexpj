@@ -1,0 +1,14 @@
+{% extends "layout.twig" %}
+
+{% block titulo %}Posts{% endblock %}
+
+{% block conteudo %}
+    <table>
+        <thead>
+            <tr><td>Codigo</td><td>Post</td><td>Visualizar</td></tr>
+        </thead>
+        {% for post in posts %}
+            <tr><td>{{post.id}}</td><td>{{post.post}}<td><td><a href="/post/{{post.id}}">Ver</a><td></tr>
+        {% endfor %}
+    </table>
+{% endblock %}
