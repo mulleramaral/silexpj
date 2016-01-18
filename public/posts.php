@@ -1,19 +1,21 @@
 <?php
 //Definição de Rotas
-
-
 // EU GOSTARIA DE SABER SE É POSSÍVEL DEFINIR OS DOIS COM O MESMO CAMINHO /POSTS POREM HORA RECEBE ID E HORA NÃO
 // SE PUDER DEIXE NA CORREÇÃO DO PROJETO
 // Rota Posts
-$app->get('/posts', function(Silex\Application $app) use($posts) {
+// Controller Enquete
+
+$posts = $app['controllers_factory'];
+
+$posts->get('/', function(Silex\Application $app) use($dados) {
             return $app['twig']->render('posts.twig', array(
-                        'posts' => $posts));
+                        'posts' => $dados));
         })
         ->bind('/posts');
 
 // Rota post para um post apenas
-$app->get('/post/{id}', function(Silex\Application $app,$id) use ($posts){
-    foreach ($posts as $post) {
+$posts->get('/{id}', function(Silex\Application $app,$id) use ($dados){
+    foreach ($dados as $post) {
         if(in_array($id,$post)){
             $p = array(
                 'id' => $post['id'],
@@ -27,7 +29,7 @@ $app->get('/post/{id}', function(Silex\Application $app,$id) use ($posts){
     return "Nao foi encontrado";    
 })->bind('/post')->assert('id','\d+');
 
-        
+return $posts;
 //$app->get('/posts',function() use ($posts){
 //    $html = "";
 //    foreach ($posts as $post) {

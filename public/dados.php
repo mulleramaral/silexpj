@@ -1,7 +1,7 @@
 <?php
 
 //Definição do Array
-$posts = array(
+$dados = array(
     array(
         'id' => 1,
         'post' => "post um"
