@@ -1,8 +1,6 @@
 <?php
 //Definição de Rotas
-// EU GOSTARIA DE SABER SE É POSSÍVEL DEFINIR OS DOIS COM O MESMO CAMINHO /POSTS POREM HORA RECEBE ID E HORA NÃO
-// SE PUDER DEIXE NA CORREÇÃO DO PROJETO
-// Rota Posts
+// Ola Obrigado pelo esclarecimento da duvida, poderia aprovar para que eu possa prosseguir para a etapa 3
 // Controller Enquete
 
 $posts = $app['controllers_factory'];
