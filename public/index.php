@@ -1,7 +1,6 @@
 <?php
 
 require_once '../vendor/autoload.php';
-require_once './dados.php';
 require_once './app.php';
 require_once './services.php';
 
