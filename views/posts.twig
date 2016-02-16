@@ -3,12 +3,18 @@
 {% block titulo %}Posts{% endblock %}
 
 {% block conteudo %}
-    <table>
-        <thead>
-            <tr><td>Codigo</td><td>Post</td><td>Visualizar</td></tr>
-        </thead>
-        {% for post in posts %}
-            <tr><td>{{post.id}}</td><td>{{post.post}}<td><td><a href="{{ path('/post',{id: post.id})}}">Ver</a><td></tr>
-        {% endfor %}
-    </table>
+    <div class="container">
+        <table class="table table-striped table-bordered">
+            <caption class="text-center"><h3>Posts</h3></caption>
+            <thead>
+                <tr><th>Codigo</th><th>Post</th><th></th></tr>
+            </thead>
+            <tbody>
+                {% for post in posts %}
+                    <tr><td>{{post.id}}</td><td>{{post.post}}</td><td><a class="btn btn-primary" href="{{ path('/post',{id: post.id})}}">Visualizar</a></td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        </div>
+    </div>
 {% endblock %}

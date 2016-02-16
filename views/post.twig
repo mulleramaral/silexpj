@@ -3,7 +3,10 @@
 {% block titulo %}Posts{% endblock %}
 
 {% block conteudo %}
-    <h3>Visualizando Post : {{post.id}} - {{post.post}}</h3>
+    <div class="container">
+        <h3>Post</h3>
+        <p>Post : {{post.id}} - {{post.post}}</p>
+        <a class="btn btn-primary" href="{{path('/posts')}}">Ver posts</a>
+    </div>
     
-    <a href="{{path('/posts')}}">Ver posts</a>
 {% endblock %}

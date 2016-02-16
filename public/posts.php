@@ -1,7 +1,5 @@
 <?php
-//Definição de Rotas
-// Ola Obrigado pelo esclarecimento da duvida, poderia aprovar para que eu possa prosseguir para a etapa 3
-// Controller Enquete
+// Controller Posts
 $posts = $app['controllers_factory'];
 
 $posts->get('/', function(Silex\Application $app) {
@@ -27,20 +25,3 @@ $posts->get('/{id}', function(Silex\Application $app,$id){
 })->bind('/post')->assert('id','\d+');
 
 return $posts;
-//$app->get('/posts',function() use ($posts){
-//    $html = "";
-//    foreach ($posts as $post) {
-//        $html .= $post['id'] . '-' . $post['post'] . '<br>';
-//    }
-//    return $html;
-//});
-
-//$app->get('/posts/{id}', function($id) use ($posts){
-//    foreach ($posts as $post) {
-//        if(in_array($id,$post)){
-//            return $post['id'] . ' - ' . $post['post'];
-//        }
-//    }
-//    return 'Post não foi encontrado.';
-//});
-
