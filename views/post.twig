@@ -4,8 +4,10 @@
 
 {% block conteudo %}
     <div class="container">
-        <h3>Post</h3>
-        <p>Post : {{post.id}} - {{post.post}}</p>
+        <h3>Visualizando Post</h3>
+        <p>Codigo: {{post.id}}</p>
+        <p>Titulo: {{post.titulo}}</p>
+        <p>Conteudo: {{post.conteudo}}</p>
         <a class="btn btn-primary" href="{{path('/posts')}}">Ver posts</a>
     </div>
     

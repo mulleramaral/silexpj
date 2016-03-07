@@ -1,13 +1,13 @@
 <?php
 
-require_once '../vendor/autoload.php';
-require_once './app.php';
-require_once './services.php';
+use Symfony\Component\HttpFoundation\Request;
 
-$app->get('/',function(Silex\Application $app){
-    return $app['twig']->render('index.twig');
-})->bind('/');
+require_once __DIR__ . DIRECTORY_SEPARATOR . '../vendor/autoload.php';
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'app.php';
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'bootstrap.php';
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'services.php';
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'rotas.php';
 
-$app->mount('/posts', include_once './posts.php');
+Request::enableHttpMethodParameterOverride();
 
 $app->run();

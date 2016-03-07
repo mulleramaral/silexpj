@@ -1,0 +1,29 @@
+{% extends "layout.twig" %}
+
+{% block titulo %}Inserindo Post{% endblock %}
+
+{% block conteudo %}
+    <div class="container">
+        <form class="form-horizontal" method="POST" action="/post/new" role="form">
+            <fieldset>
+                <legend>Inserindo Post</legend>
+                <div class="form-group">
+                    <label for="titulo">Titulo</label>
+                    <input type="text" class="form-control" id="titulo" name="titulo" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="conteudo">Conteudo</label>
+                    <input type="text" class="form-control" id="conteudo" name="conteudo" required>
+                </div>
+
+            </fieldset>
+
+            <div class="form-group">
+                <input class="btn btn-primary" type="submit" value="Salvar">
+                <a class="btn btn-primary" href="{{path('/posts')}}">Cancelar</a>
+            </div>
+        </form>
+    </div>
+
+{% endblock %}

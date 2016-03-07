@@ -15,4 +15,13 @@ return array(
     'Symfony\\Bridge\\Twig' => array($vendorDir . '/symfony/twig-bridge'),
     'Silex' => array($vendorDir . '/silex/silex/src'),
     'Pimple' => array($vendorDir . '/pimple/pimple/lib'),
+    'Gedmo\\' => array($vendorDir . '/gedmo/doctrine-extensions/lib'),
+    'Doctrine\\ORM' => array($vendorDir . '/doctrine/orm/lib'),
+    'Doctrine\\DBAL' => array($vendorDir . '/doctrine/dbal/lib'),
+    'Doctrine\\Common\\Lexer\\' => array($vendorDir . '/doctrine/lexer/lib'),
+    'Doctrine\\Common\\Inflector\\' => array($vendorDir . '/doctrine/inflector/lib'),
+    'Doctrine\\Common\\Collections\\' => array($vendorDir . '/doctrine/collections/lib'),
+    'Doctrine\\Common\\Annotations\\' => array($vendorDir . '/doctrine/annotations/lib'),
+    'Doctrine\\Common\\' => array($vendorDir . '/doctrine/common/lib'),
+    'Behat\\Transliterator' => array($vendorDir . '/behat/transliterator/src'),
 );

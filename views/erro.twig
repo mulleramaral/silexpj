@@ -1,0 +1,15 @@
+{% extends "layout.twig" %}
+
+{% block titulo %}Erro{% endblock %}
+
+{% block conteudo %}
+    <div class="container">
+        <h1 class="jumbotron">Ocorreu uma excecao</h1>
+        
+        <br>
+        <p>{{excecao}}</p>
+        
+        
+        <a href="{{ path('/posts')}}" class="btn btn-primary">Visualizar Posts</a>
+    </div>
+{% endblock %}
