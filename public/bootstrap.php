@@ -48,11 +48,20 @@ $sluggableListener = new Gedmo\Sluggable\SluggableListener;
 $sluggableListener->setAnnotationReader($cachedAnnotationReader);
 $evm->addEventSubscriber($sluggableListener);
 
+//$em = EntityManager::create(array(
+//            'driver' => 'pdo_mysql',
+//            'host' => 'mysql.hostinger.com.br',
+//            'port' => '3306',
+//            'user' => 'u932640340_root',
+//            'password' => '8272178',
+//            'dbname' => 'u932640340_silex'
+//                ), $config, $evm);
+
 $em = EntityManager::create(array(
-            'driver' => 'pdo_mysql',
-            'host' => 'localhost',
-            'port' => '3306',
-            'user' => 'root',
-            'password' => '',
-            'dbname' => 'silexpj'
-                ), $config, $evm);
+    'driver' => 'pdo_mysql',
+    'host' => 'localhost',
+    'port' => '3306',
+    'user' => 'root',
+    'password' => '',
+    'dbname' => 'silexpj'
+), $config,$evm);
