@@ -10,8 +10,8 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * @ORM\Table(name="users")
  * @ORM\Entity(repositoryClass="muller\Entity\UserRepository")
  */
-class User implements UserInterface {
-
+class User implements UserInterface
+{
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -20,22 +20,22 @@ class User implements UserInterface {
     public $id;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", length=100)
      */
     public $username;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", length=100)
      */
     public $password;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", length=100)
      */
     public $plainPassword;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", length=100)
      */
     public $roles = array('ROLE_USER');
 
@@ -44,70 +44,49 @@ class User implements UserInterface {
      */
     public $createdAt;
 
-    public function __construct() {
-        $this->createdAt = new \DateTime();
+    public function __construct()
+    {
+        $this->createdAt = new \Datetime();
     }
 
-    public function getId() {
-        return $this->id;
-    }
-
-    public function setId($id) {
-        $this->id = $id;
-    }
-
-    public function getUsername() {
-        return $this->username;
-    }
-
-    public function setUsername($username) {
-        $this->username = $username;
-    }
-
-    public function getPassword() {
-        return $this->password;
-    }
-
-    public function setPassword($password) {
-        $this->password = $password;
-    }
-
-    public function getPlainPassword() {
-        return $this->plainPassword;
-    }
-
-    public function setPlainPassword($plainPassword) {
-        $this->plainPassword = $plainPassword;
-    }
-
-    public function getRoles() {
+    public function getRoles()
+    {
         return $this->roles;
     }
 
-    public function setRoles($roles) {
-        $this->roles = $roles;
+    public function getPassword()
+    {
+        return $this->password;
     }
 
-    public function getSalt() {
+    public function getSalt()
+    {
         return null;
     }
 
-    public function eraseCredentials() {
+    public function getUsername()
+    {
+        return $this->username;
+    }
+
+    public function eraseCredentials()
+    {
         $this->plainPassword = null;
     }
 
-    public function __toString() {
+    public function __toString()
+    {
         return $this->getUsername();
     }
 
-    public function toArray() {
+    public function toArray()
+    {
         return array(
             'id' => $this->id,
-            'username' => $this->username,
+            'username' => $this->getUsername(),
             'salt' => $this->getSalt(),
             'roles' => $this->getRoles(),
-            'password' => $this->getPassword()
+            'password'=>$this->getPassword()
         );
     }
-
 }

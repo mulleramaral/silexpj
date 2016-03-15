@@ -6,10 +6,10 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="post")
+ * @ORM\Table(name="posts")
  */
-class Post {
-
+class Post
+{
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -18,7 +18,7 @@ class Post {
     private $id;
 
     /**
-     * @ORM\Column(type="string",length=255)
+     * @ORM\Column(type="string", length=100)
      */
     private $titulo;
 
@@ -27,28 +27,34 @@ class Post {
      */
     private $conteudo;
 
-    public function getId() {
+    public function setConteudo($conteudo)
+    {
+        $this->conteudo = $conteudo;
+    }
+
+    public function getConteudo()
+    {
+        return $this->conteudo;
+    }
+
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    public function getId()
+    {
         return $this->id;
     }
 
-    public function setId($id) {
-        $this->id = $id;
-    }
-    
-    public function getTitulo(){
-        return $this->titulo;
-    }
-    
-    public function setTitulo($titulo){
+    public function setTitulo($titulo)
+    {
         $this->titulo = $titulo;
     }
-    
-    public function getConteudo(){
-        return $this->conteudo;
-    }
-    
-    public function setConteudo($conteudo){
-        $this->conteudo = $conteudo;
+
+    public function getTitulo()
+    {
+        return $this->titulo;
     }
 
 }

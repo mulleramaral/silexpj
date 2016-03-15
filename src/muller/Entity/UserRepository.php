@@ -2,99 +2,128 @@
 
 namespace muller\Entity;
 
-use Symfony\Component\Security\Core\User\UserProviderInterface,
-    Symfony\Component\Security\Core\Exception\UsernameNotFoundException,
-    Symfony\Component\Security\Core\User\UserInterface,
-    Symfony\Component\Security\Core\Exception\UnsupportedUserException,
-    Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface,
-    Doctrine\ORM\EntityRepository;
+use Symfony\Component\Security\Core\User\UserProviderInterface;
+use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
+use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
+use Doctrine\ORM\EntityRepository;
 
-class UserRepository extends EntityRepository implements UserProviderInterface{
-    
+class UserRepository extends EntityRepository implements UserProviderInterface
+{
     private $passwordEncoder;
-    
-    
-    public function createAdminUser($username,$password){
-        $user = new User;
+
+    public function createAdminUser($username, $password)
+    {
+        $user = new User();
         $user->username = $username;
         $user->plainPassword = $password;
         $user->roles = 'ROLE_ADMIN';
-        
+
         $this->insert($user);
-    }
-    
-    public function insert(User $user)
-    {
-        $this->encodePassword($user);
-        $em = $this->getEntityManager();
-        $em->persist($user);
-        $em->flush();
+
         return $user;
     }
-    
+
     public function setPasswordEncoder(PasswordEncoderInterface $passwordEncoder)
     {
         $this->passwordEncoder = $passwordEncoder;
     }
-    
-    public function encodePassword(User $user)
+
+    public function insert($user)
     {
-        if($user->plainPassword)
-            $user->password = $this->passwordEncoder->encodePassword ($user->password,$user->getSalt());
-    }
-    
-    public function loadUserByUsername($username) {
-        $user = $this->findOneByUsername($username);
-        if(!$user)
-            throw new UsernameNotFoundException(sprintf('Usuario "%s" não existe.',$username));
-        
-        return $this->arrayToObject($user->toArray());
+        $this->encodePassword($user);
+
+        $this->getEntityManager()->persist($user);
+        $this->getEntityManager()->flush();
     }
 
-    public function refreshUser(UserInterface $user) {
-        if(!user instanceOf User)
-            throw new UnsupportedUserException(sprintf('Instances of "%s" are not suported',  get_class ($user)));
-    }
-
-    public function supportsClass($class) {
-        return $class === 'muller\Entity\User';
-    }
-    
-    public function arrayToObject($userArr,$user = null)
-    {
-        if(!$user){
-            $user = new User();
-            $user->id = isset($userArr['id']) ? $userArr['id'] : null;
-        }
-        
-        $username = isset($userArr['username']) ? $userArr['username'] : null;
-        $password = isset($userArr['password']) ? $userArr['password'] : null;
-        $roles = isset($userArr['roles']) ? explode(',',$userArr['roles']) : array();
-        #$createdAt = isset($userArr['created_at']) ? \DateTime::createFromFormat(self::DATE_FORMAT,$userArr['created_at']);
-        
-        if($username){
-            $user->username = $username;
-        }
-        
-        if($password){
-            $user->password = $password;
-        }
-        
-        if($roles){
-            $user->roles = $roles;
-        }
-        
-        return $user;
-    }
-    
     public function objectToArray(User $user)
     {
         return array(
             'id' => $user->id,
             'username' => $user->username,
             'password' => $user->password,
-            'roles' => implode(',',$user->roles),
-            'created_at' => $user->createdAt->format(self::DATE_FORMAT)
+            'roles' => implode(',', $user->roles),
+            'created_at' => $user->createdAt->format(self::DATE_FORMAT),
         );
+    }
+
+    /**
+     * Turns an array of data into a User object
+     *
+     * @param array $userArr
+     * @param User $user
+     * @return User
+     */
+    public function arrayToObject( $userArr, $user = null)
+    {
+        // create a User, unless one is given
+        if (!$user) {
+            $user = new User();
+
+            $user->id = isset($userArr['id']) ? $userArr['id'] : null;
+        }
+
+        $username = isset($userArr['username']) ? $userArr['username'] : null;
+        $password = isset($userArr['password']) ? $userArr['password'] : null;
+        $roles = isset($userArr['roles']) ? explode(',', $userArr['roles']) : array();
+        $createdAt = isset($userArr['created_at']) ? \DateTime::createFromFormat(self::DATE_FORMAT, $userArr['created_at']) : null;
+
+        if ($username) {
+            $user->username = $username;
+        }
+
+        if ($password) {
+            $user->password = $password;
+        }
+
+        if ($roles) {
+            $user->roles = $roles;
+        }
+
+        if ($createdAt) {
+            $user->createdAt = $createdAt;
+        }
+
+        return $user;
+    }
+
+    public function loadUserByUsername($username)
+    {
+
+        $user = $this->findOneByUsername($username);
+
+        if (!$user) {
+            throw new UsernameNotFoundException(sprintf('Username "%s" does not exist.', $username));
+        }
+
+        return $this->arrayToObject($user->toArray());
+    }
+
+    public function refreshUser(UserInterface $user)
+    {
+        if (!$user instanceof User) {
+            throw new UnsupportedUserException(sprintf('Instances of "%s" are not supported.', get_class($user)));
+        }
+
+        return $this->loadUserByUsername($user->getUsername());
+    }
+
+    public function supportsClass($class)
+    {
+        return $class === 'muller\Entity\User';
+    }
+
+    /**
+     * Encodes the user's password if necessary
+     *
+     * @param User $user
+     */
+    private function encodePassword(User $user)
+    {
+        if ($user->plainPassword) {
+            $user->password = $this->passwordEncoder->encodePassword($user->plainPassword, $user->getSalt());
+        }
     }
 }
